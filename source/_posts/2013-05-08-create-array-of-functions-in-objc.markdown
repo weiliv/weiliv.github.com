@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Create array of funcitons in ObjC"
+title: "Create array of functions in ObjC"
 date: 2013-05-08 13:59
 comments: true
 categories: [DEV, iOS] 
