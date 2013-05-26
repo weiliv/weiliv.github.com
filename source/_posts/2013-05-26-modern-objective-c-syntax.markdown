@@ -96,7 +96,7 @@ for (int i = 0; i < 3; ++i) {
 }];
 ```
 
-So the feature also works with NSDictionary. Moreover, you can provide this ```[]``` feature in your own class, just implmenting these two method:
+So the feature also works with NSDictionary. Moreover, you can provide this ```[]``` feature in your own class, just implmenting these two method:    
 
 ``` objectivec
 - (id)objectAtIndexedSubscript:(NSUInterger)idx;
