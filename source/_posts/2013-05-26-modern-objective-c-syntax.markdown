@@ -17,6 +17,7 @@ NSNumber * number = [NSNumber numberWithInt:1];
 NSArray * array = [NSArray arrayWithObjects:@"one", @"two", nil];
 NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:@"value1", @"key1", @"value2", @"key2", nil];
 ```
+
 Now the above code can be refactered as follows, 
 
 ``` objectivec
@@ -96,9 +97,11 @@ for (int i = 0; i < 3; ++i) {
 ```
 
 So the feature also works with NSDictionary. Moreover, you can provide this ```[]``` feature in your own class, just implmenting these two method:
+
 ``` objectivec
 - (id)objectAtIndexedSubscript:(NSUInterger)idx;
 - (void)setObject:(id)value atIndexedSubscript:(NSUInteger)idx;
 ```
+
 In fact, this feature is not unfamiliar in other language, like C++ or Java. Maybe Objective-C was born in 1980s, it never improve that.
 But, better late than never!~ Objective-C is always moving forward!
