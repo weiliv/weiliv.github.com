@@ -3,7 +3,7 @@ layout: post
 title: "the Output of UIImage.size"
 date: 2013-06-01 14:11
 comments: true
-categories: 
+categories: [DEV,iOS] 
 ---
 The `size` reported by `UIImage` is in points, not pixels. You need to take into account the `scale` property of `UIImage`.
 
