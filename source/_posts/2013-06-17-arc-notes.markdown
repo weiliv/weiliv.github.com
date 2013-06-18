@@ -1,0 +1,127 @@
+---
+layout: post
+title: "ARC Notes - Part 1"
+date: 2013-06-17 17:45
+comments: true
+styles: [data-table]
+categories: [iOS]
+---
+
+## What is ARC?
+
+> *Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Rather than having to think about retain and release operations, ARC allows you to concentrate on the interesting code.*
+
+### Advantages of ARC
+
+1. Less work
+2. Neater appearance
+3. More efficient code
+
+### Basic Rules of ARC
+
+* `retain, release, autorelease, dealloc` are auto-inserted by compliler and can't be called in our code.
+* Though `dealloc` can be overload, you can't call `[super dealloc]`.
+* use `__bridge` to cast between `id` and `void *`
+* replace `NSAutoReleasePool` with `@autoreleasepool`
+
+### Objectics under ARC
+
+> ARC introduces several new lifetime qualifiers for objects, and weak references. A weak reference does not extend the lifetime of the object it points to, and automatically becomes nil when there are no strong references to the object.
+>  
+> You should take advantage of these qualifiers to manage the object graphs in your program. In particular, ARC does not guard agains strong reference cycles. Judicious use of weak relationships will help to ensure you don’t create cycles.
+
+#### Strong reference
+
+{% photo /images/ARC/ARC_outline_strong.JPG /images/ARC/ARC_outline_strong.JPG %}
+
+#### Weak reference
+
+{% photo /images/ARC/ARC_outline_weak.png /images/ARC/ARC_outline_weak.png %}
+
+1. `firstname` is `@"natsu"` object's holder, in other words, `fistname` is `NSString` type object's strong reference.
+2. Using qualifier `__weak` to desprate that `weakName` is a weak reference and can access `@"natsu"`, but it's not `@"natsu"`'s holder.
+3. After `firstName` pointing to new object `@"maki"` and becoming its holder, the previous object `@"natsu"` has no holder and be destroyed immediately. At the same time, var `weakName` becomes `nil` automatically.
+
+#### Variable Qualifiers
+
+`__strong, __weak, __unsafe_unretained, __autoreleasing`
+
+* **__strong** is the default. An object remains “alive” as long as there is a strong pointer to it.
+
+* **__weak** specifies a reference that does not keep the referenced object alive. A weak reference is set to `nil` when there are no strong references to the object.
+
+```objectivec
+NSString __weak *string = [[NSString alloc] initWithFormat:@"First Name: %@", [self firstName]];
+NSLog(@"string: %@", string); //string is nil
+```
+
+* **__unsafe_unretained** specifies a reference that does not keep the referenced object alive and is not set to `nil` when there are no strong references to the object. If the object it references is deallocated, the pointer is left dangling.
+
+* **__autoreleasing** is used to denote arguments that are passed by reference (`id *`) and are autoreleased on return. It delayes the release of object, such as:
+
+```objectivec
+- (void) generateErrorInVariable:(__autoreleasing NSError **)paramError {
+    ....
+    *paramError = [[NSError alloc] initWithDomain:@"MyApp" code:1 userInfo:errorDictionary];
+}
+
+....
+{
+    NSError *error = nil;
+    [self generateErrorInVariable:&error];
+    NSLog(@"Error = %@", error);
+}
+```
+
+The returned value of functions as:
+
+```objectivec
+//non-ARC
+-(NSString *)stringTest
+{
+    NSString *retStr = [[[NSString alloc] initWithString:@”test”] autorelease];
+    return retStr;
+}
+
+// ARC
+-(NSString *)stringTest
+{
+    __autoreleasing NSString *retStr = [NSString alloc] initWithString:@"test"];
+
+    return retStr;
+}
+```
+
+## About *@property*
+
+### Ownership
+
+Here is relationship between propertis and variale qualifiers.
+
+Property     | Qualifier     | Ownership
+------------ | ------------- | :------------:
+strong       | __strong      | YES
+weak         | __weak        | NO
+unsafe_unretained| __unsafe_unretained| NO
+copy         | __strong      | YES
+assign       | __unsafe_unretained| NO
+retain       | __strong      | YES
+
+* *delegate* or *outlet* should be declared as *weak*
+* Scalar varibles should be declared as *assign*, such as *int, BOOL*
+
+### readwrite, readonly
+
+Pay attention to **Readonly** property under ARC. 
+```objectivec
+@property (readonly, nonatomic) NSString *name;
+``` 
+Generally, we do not need the ownership of vars declared as *readonly*. But under ARC, the upper code will obtain error message:
+
+>“ARC forbids synthesizing a property of an Objective-C object with unspecified ownership or storage attribute”
+
+So the ownership of the var should be declared.
+```objectivec
+@property (strong, readonly, nonatomic) NSString *name;
+``` 
+But for scalar varibles, the default property is *assign*, so it's unnecessary to declare the var's ownership. 
