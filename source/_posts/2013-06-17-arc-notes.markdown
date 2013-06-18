@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ARC Notes - Part 1"
+title: "ARC Notes - Part 1 - Basics"
 date: 2013-06-17 17:45
 comments: true
 styles: [data-table]
