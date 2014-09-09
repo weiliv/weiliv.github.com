@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Life | Meet @五角场民工]]></title>
+  <link href="http://weiliv.github.io/blog/categories/life/atom.xml" rel="self"/>
+  <link href="http://weiliv.github.io/"/>
+  <updated>2014-09-09T20:27:54+08:00</updated>
+  <id>http://weiliv.github.io/</id>
+  <author>
+    <name><![CDATA[Wei Li]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My First Blog for Setting Goals]]></title>
+    <link href="http://weiliv.github.io/blog/2013/04/20/my-first-blog-for-setting-goals/"/>
+    <updated>2013-04-20T20:36:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/04/20/my-first-blog-for-setting-goals</id>
+    <content type="html"><![CDATA[<p>I still remember when maintaining MSN space the first year I entered college. Then now I come back! Coz during the busy developping work, I rarely have time to write down some of the tips I need to achive. And what most of all, I should refect on my life regularly and regularly which is the exactly thing I seldom do.</p>
+
+<p>As the title says, here some of goals are listed that I should cost my passion to acheive, at least try my best before 2014.1.1. Though today is Apr 20th, 2013, better later than never to set goals!</p>
+
+<h3>Goals on Work</h3>
+
+<p>Though I&rsquo;ve acted as an IOS developper for more than a half year, I&rsquo;m still a newbie definitly. And new techs come out year by year, learning should never stop.</p>
+
+<ul>
+<li>Learn more about ARC principle of the IOS, and try to migrate our project to ARC. ARC is a free of worry  achitecture that can save us a lot of time debugging and optimizing the memory issures which have anoyed us  since the last year when we start CYZS project. So we can &ldquo;release&rdquo; our dev resource on memory leaking or crashing, then focus on the logical optimization.</li>
+<li>When a new ios project kicks off, automating UI test should join in.</li>
+<li>Try to participate on the server devlepment, learn relative knowlege from Lucky and Tom.</li>
+<li>Be active on building of the engineers' culture in our company, such as orgnizing some coding games and attending some tech conferences or forums as Karry pointed out.</li>
+</ul>
+
+
+<h3>Goals on Life</h3>
+
+<ul>
+<li>Keeping fit
+
+<ul>
+<li>Running, from now on maybe 150km? Recheck with Nike+.</li>
+<li>Basketball, once for 2 weeks.</li>
+</ul>
+</li>
+<li>Guita, practice and practice.</li>
+<li>Real estate, find one.</li>
+<li>The most important one, you know that!</li>
+</ul>
+
+
+<p>Hope all the goals will be defeated at the end of 2013.</p>
+]]></content>
+  </entry>
+  
+</feed>

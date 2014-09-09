@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>NSRegularExpression Notes and Cheat Sheet - Meet @五角场民工</title>
+  <meta name="author" content="Wei Li">
+
+  
+  <meta name="description" content="I&rsquo;m so shamed that little knowledge about RegularExpression was armed. Then I found a blog post by Ray Wenderlich, an independent iOS developer &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Meet @五角场民工" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<!-- Load jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery.noConflict(); // ender.js conflicts with jQuery
+</script>
+ 
+<!-- Load FancyBox -->
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" />
+<script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+ 
+<!-- Fix FancyBox style for OctoPress -->
+<style type="text/css">
+  .fancybox-wrap { position: fixed !important; }
+  .fancybox-opened {
+    -webkit-border-radius: 4px !important;
+       -moz-border-radius: 4px !important;
+            border-radius: 4px !important;
+  }
+  .fancybox-close, .fancybox-prev span, .fancybox-next span {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+</style>
+
+ 
+<!-- Custom Scripts -->
+<script language="Javascript" type="text/javascript">
+    // ender.js gobbles jQuery's ready event: Use ender.js $ instead
+    $(document).ready(function() {
+        jQuery(".fancybox").fancybox();
+    });
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41052163-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Meet @五角场民工</a></h1>
+  
+    <h2>Blog about Apps, Web, and my life.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:weiliv.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">NSRegularExpression Notes and Cheat Sheet</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-19T21:30:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;m so shamed that little knowledge about RegularExpression was armed. Then I found a <a href="http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet">blog</a> post by <a href="http://www.raywenderlich.com/">Ray Wenderlich</a>, an independent iOS developer whoes articals did have helped me a lot.</p>
+
+<p>A regular expression (commonly known as a “regex”) is a string or a sequence of characters that specifies a pattern. Think of it as a search string — but with super powers!</p>
+
+<p>A plain old search in a text editor or word processor will allow you to find simple matches. A regular expression can also perform these simple searches, but it takes things a step further and lets you search for patterns , such as two digits followed by letter, or three letters followed by a hyphen.</p>
+
+<p>This pattern matching allows you to do useful things like validate fields (phone numbers, email addresses), check user input, perform advanced text manipulation and much much more.</p>
+
+<p>In addition, I’ll give you a handy NSRegularExpression Cheat Sheet PDF that you can print out and use as reference as you’re developing!</p>
+
+<p>Without further ado, it’s time to start crunching some regular expressions.</p>
+
+<h3>The Basics Introduction</h3>
+
+<p><em>Examples</em></p>
+
+<p>Let’s start with a few brief examples to show you what regular expressions look like.</p>
+
+<p>Here’s an example of a regular expression that matches the phrase “NSRegularExpression”:</p>
+
+<p><code>NSRegularExpression</code></p>
+
+<p>That’s about as simple as regular expressions get. You can use some APIs that are available in iOS to search a string of text for any part that matches this regular expression – and once you find a match, you can find where it is, or replace the text, etc.</p>
+
+<p>Here’s a slightly more complicated example – this one matches the phrase “NSRegularExpression” or “NSRegularExpressions”:</p>
+
+<p><code>NSRegularExpression(s)?</code></p>
+
+<p>This is an example of using some special characters that are available in regular expressions. The parenthesis create a group, and the question mark says “match the previous element (the group in this case) 0 or 1 times”.</p>
+
+<p>Now let’s go for a really complex example. This one matches any HTML or XML tag:</p>
+
+<p><code>&lt;([a-z][a-z0-9]*)\b[^&gt;]*&gt;(.*?)</code></p>
+
+<p>Wow, looks complicated, eh? :) Don’t worry, you’ll be learning about all the special characters in this regular expression in the rest of this tutorial, and by the time you’re done you should be able to understand how this works! :)</p>
+
+<p><em>Testing Regular Expressions</em></p>
+
+<p>In this tutorial, you’ll be creating a lot of regular expressions. If you want to try them out visually as you’re working with them, check out <a href="http://regexpal.com/">regexpal</a> , a web-based regular expression parser. Enter a regular expression in the top field, enter some text in the bottom field, and the matches in the searched text will automatically highlight.</p>
+
+<p>Load up regexpal and try out the above example expressions one at a time. Here’s some good sample text to use:</p>
+
+<p><code>NSRegularExpression tutorial or NSRegularExpressions tutorial. And here's an html tag.</code></p>
+
+<p>Pretty handy, eh? It’s great to see regular expressions in action, so you can test out your own regular expressions as you’re working with them.</p>
+
+<h3>Overall Concepts</h3>
+
+<p>Before you go any further, it’s important to understand a few core concepts about regular expressions.</p>
+
+<p><em>Literal characters</em> are the simplest kind of regular expression. They’re similar to a “find” operation in a word processor or text editor. For example, the single-character regular expression <code>t</code> will find all occurrences of the letter “t”, and the regular expression <code>hello</code> will find all appearances of “hello”. Pretty straightforward!</p>
+
+<p>Just like a programming language, there are some “reserved” characters in regular expression syntax, as follows:</p>
+
+<p><code>[</code>
+<code>( and )</code>
+<code>\</code>
+<code>*</code>
+<code>+</code>
+<code>?</code>
+<code>{ and }</code>
+<code>^</code>
+<code>$</code>
+<code>.</code>
+<code>|(pipe)</code>
+<code>/</code></p>
+
+<p>These characters are used for advanced pattern matching. If you want to search for one of these characters, you need to escape it with a backslash. For example, to search for all periods in a block of text, the pattern is not <code>.</code> but rather <code>\.</code> .</p>
+
+<p>As an extra complication, since regular expressions are strings themselves, the backslash character needs to be escaped when working with <code>NSString</code> and <code>NSRegularExpression</code> . That means the standard regular expression <code>\.</code> will be written as <code>\\.</code> in your code.</p>
+
+<p>To clarify the above concept in point form:</p>
+
+<ul>
+<li>The literal <code>@"\\."</code> defines a string that looks like this: .</li>
+<li>The regular expression . will then match a single period character</li>
+</ul>
+
+
+<p><em>Capturing parentheses</em> are used to group part of a pattern. For example, <code>3 (pm|am)</code> would match the text &ldquo;3 pm&rdquo; as well as the text &ldquo;3 am&rdquo;. The pipe character here ( <code>|</code>) acts like an OR operator. You can include as many pipe characters in your regular expression as you would like. As an example, <code>(Tom|Dick|Harry)</code> is a valid pattern.</p>
+
+<p>Grouping with parentheses comes in handy when you need to optionally match a certain text string. Say you are looking for &ldquo;November&rdquo; in some text, but the user may or may not have abbreviated the month as &ldquo;Nov&rdquo;. You can define the pattern as <code>Nov(ember)?</code> where the question mark after the capturing parentheses means that whatever is inside the parentheses is optional.</p>
+
+<p>These parentheses are termed &ldquo;capturing&rdquo; because they capture the matched content and allow you reference it in other places in your regular expression.</p>
+
+<p>As an example, assume you have the string &ldquo;Say hi to Harry&rdquo;. If you created a search-and-replace regular expression to replace any occurences of <code>(Tom|Dick|Harry)</code> with <code>that guy $1</code> , the result would be &ldquo;Say hi to that guy Harry&rdquo;. The <code>$1</code> allows you to reference the first captured group of the preceding rule.</p>
+
+<p><em>Character classes</em> represent a set of possible single-character matches. Character classes appear between square brackets ( <code>[</code> and <code>]</code> ).</p>
+
+<p>As an example, the regular expression <code>t[aeiou]</code> will match &ldquo;ta&rdquo;, &ldquo;te&rdquo;, &ldquo;ti&rdquo;, &ldquo;to&rdquo;, or &ldquo;tu&rdquo;. You can have as many character possibilities inside the square brackets as you like, but remember that any single character in the set will match. <code>[aeiou]</code> looks like five characters, but it actually means &ldquo;a&rdquo; or &ldquo;e&rdquo; or &ldquo;i&rdquo; or &ldquo;o&rdquo; or &ldquo;u&rdquo;.</p>
+
+<p>You can also define a range in a character class if the characters appear consecutively. For example, to search for a number between 100 to 109, the pattern would be <code>10[0-9]</code> . This returns the same results as 10[0123456789] , but using ranges makes your regular expressions much cleaner and easier to understand.</p>
+
+<p>But character classes aren&rsquo;t limited to numbers — you can do the same thing with characters. For instance, <code>[a-f]</code> will match &ldquo;a&rdquo;, &ldquo;b&rdquo;, &ldquo;c&rdquo;, &ldquo;d&rdquo;, &ldquo;e&rdquo;, or &ldquo;f&rdquo;.</p>
+
+<p>Character classes usually contain the characters you want to match, but what if you want to explicitly not match a character? You can also define negated character classes, which use the <code>^</code> character. For example, the pattern <code>t[^o]</code> will match any combination of &ldquo;t&rdquo; and one other character except for the single instance of &ldquo;to&rdquo;.</p>
+
+<h3>NSRegularExpressions Cheat Sheet</h3>
+
+<p>Regular expressions are a great example of a simple syntax that can end up with some very complicated arrangements! Even the best regular expression wranglers keep a cheat sheet handy for those odd corner cases.</p>
+
+<p>There is <a href="http://cdn5.raywenderlich.com/downloads/RW-NSRegularExpression-Cheatsheet.pdf">NSRegularExpression Cheat Sheet</a> PDF to help!</p>
+
+<p>In addition, here&rsquo;s an abbreviated form of the cheat sheet below with some additional explanations to get started:</p>
+
+<ul>
+<li><code>.</code> matches any character. <code>p.p</code> matches pop, pup, pmp, p@p, and so on.</li>
+<li><code>\w</code> matches any &ldquo;word-like&rdquo; character which includes the set of numbers, letters, and underscore, but does not match punctuation or other symbols. <code>hello\w</code> will match &ldquo;hello_9&rdquo; and &ldquo;helloo&rdquo; but not &ldquo;hello!&rdquo;</li>
+<li><code>\d</code> matches a numeric digit, which in most cases means <code>[0-9]</code> . <code>\d\d?:\d\d</code> will match strings in time format, such as &ldquo;9:30&rdquo; and &ldquo;12:45&rdquo;.</li>
+<li><code>\b</code> matches word boundary characters such as spaces and punctuation. <code>to\b</code> will match the &ldquo;to&rdquo; in &ldquo;to the moon&rdquo; and &ldquo;to!&rdquo;, but it will not match &ldquo;tomorrow&rdquo;. <code>\b</code> is handy for &ldquo;whole word&rdquo; type matching.</li>
+<li><code>\s</code> matches whitespace characters such as spaces, tabs, and newlines. <code>hello\s</code> will match &ldquo;hello &rdquo; in &ldquo;Well, hello there!&rdquo;.</li>
+<li><code>^</code> matches at the beginning of a line. Note that this particular <code>^</code> is different from <code>^</code> inside of the square brackets! For example, ^Hello will match against the string &ldquo;Hello there&rdquo;, but not &ldquo;He said Hello&rdquo;.</li>
+<li><code>$</code> matches at the end of a line. For example, the <code>end$</code> will match against &ldquo;It was the end&rdquo; but not &ldquo;the end was near&rdquo;.</li>
+<li><code>*</code> matches the previous element 0 or more times. <code>12*3</code> will match 13, 123, 1223, 122223, and 1222222223.</li>
+<li><code>+</code> matches the previous element 1 or more times. 12+3 will match 123, 1223, 122223, 1222222223, but not 13.</li>
+<li>Curly braces <code>{}</code> contain the minimum and maximum number of matches. For example, <code>10{1,2}1</code> will match both &ldquo;101&rdquo; and &ldquo;1001&rdquo; but not &ldquo;10001&rdquo; as the minimum number of matches is <code>1</code> and the maximum number of matches is <code>2</code> . <code>He[Ll]{2,}o</code> will match &ldquo;HeLLo&rdquo; and &ldquo;HellLLLllo&rdquo; and any such silly variation of &ldquo;hello&rdquo; with lots of L&rsquo;s, since the minimum number of matches is 2 but the maximum number of matches is not set — and therefore unlimited!</li>
+</ul>
+
+
+<p>That&rsquo;s <em>may</em> enough to get started!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Wei Li</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-19T21:30:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dev/'>DEV</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/" data-via="Victor1ee" data-counturl="http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/08/create-array-of-functions-in-objc/" title="Previous Post: Create array of functions in ObjC">&laquo; Create array of functions in ObjC</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/26/modern-objective-c-syntax/" title="Next Post: Modern Objective-C Syntax">Modern Objective-C Syntax &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/">iTunes Connect: Can't Save App Information 导致不能提交新版本的解决方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/18/arc-notes-part-2/">ARC Notes - Part 2 - More About Lifecycles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/17/arc-notes/">ARC Notes - Part 1 - Basics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/ios7-ui-preview/">iOS7 UI Preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/">Getting MD5 or SHA1 From NSData/NSString</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+
+<section>
+    <h1>On Sina Weibo:</h1>
+    <div>
+        <wb:follow-button uid="1880452127" type="gray_2" width="136" height="24" ></wb:follow-button>
+    </div>
+</section>
+
+
+</html>
+
+<section>
+  <h1>On Twitter:</h1>
+  <div>
+    <p><br /><a href="http://twitter.com/Victor1ee" target="_blank">My Tweets, on Twitter.</a></p>
+    <a href="http://twitter.com/Victor1ee" class="twitter-follow-button" data-show-count="">Follow @Victor1ee</a>
+  </div>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Wei Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ARC Notes - Part 1 - Basics - Meet @五角场民工</title>
+  <meta name="author" content="Wei Li">
+
+  
+  <meta name="description" content="What is ARC? Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Rather than &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://weiliv.github.io/blog/2013/06/17/arc-notes">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Meet @五角场民工" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<!-- Load jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery.noConflict(); // ender.js conflicts with jQuery
+</script>
+ 
+<!-- Load FancyBox -->
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" />
+<script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+ 
+<!-- Fix FancyBox style for OctoPress -->
+<style type="text/css">
+  .fancybox-wrap { position: fixed !important; }
+  .fancybox-opened {
+    -webkit-border-radius: 4px !important;
+       -moz-border-radius: 4px !important;
+            border-radius: 4px !important;
+  }
+  .fancybox-close, .fancybox-prev span, .fancybox-next span {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+</style>
+
+ 
+<!-- Custom Scripts -->
+<script language="Javascript" type="text/javascript">
+    // ender.js gobbles jQuery's ready event: Use ender.js $ instead
+    $(document).ready(function() {
+        jQuery(".fancybox").fancybox();
+    });
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41052163-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Meet @五角场民工</a></h1>
+  
+    <h2>Blog about Apps, Web, and my life.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:weiliv.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ARC Notes - Part 1 - Basics</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-17T17:45:00+08:00" pubdate data-updated="true">Jun 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>What is ARC?</h2>
+
+<blockquote><p><em>Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Rather than having to think about retain and release operations, ARC allows you to concentrate on the interesting code.</em></p></blockquote>
+
+<h3>Advantages of ARC</h3>
+
+<ol>
+<li>Less work</li>
+<li>Neater appearance</li>
+<li>More efficient code</li>
+</ol>
+
+
+<h3>Basic Rules of ARC</h3>
+
+<ul>
+<li><code>retain, release, autorelease, dealloc</code> are auto-inserted by compliler and can&rsquo;t be called in our code.</li>
+<li>Though <code>dealloc</code> can be overload, you can&rsquo;t call <code>[super dealloc]</code>.</li>
+<li>use <code>__bridge</code> to cast between <code>id</code> and <code>void *</code></li>
+<li>replace <code>NSAutoReleasePool</code> with <code>@autoreleasepool</code></li>
+</ul>
+
+
+<h3>Objectics under ARC</h3>
+
+<blockquote><p>ARC introduces several new lifetime qualifiers for objects, and weak references. A weak reference does not extend the lifetime of the object it points to, and automatically becomes nil when there are no strong references to the object.</p>
+
+<p>You should take advantage of these qualifiers to manage the object graphs in your program. In particular, ARC does not guard agains strong reference cycles. Judicious use of weak relationships will help to ensure you don’t create cycles.</p></blockquote>
+
+<h4>Strong reference</h4>
+
+<p><a href="/images/ARC/ARC_outline_strong.JPG" class="fancybox" title=""><img src="/images/ARC/ARC_outline_strong.JPG" alt="" /></a></p>
+
+<h4>Weak reference</h4>
+
+<p><a href="/images/ARC/ARC_outline_weak.png" class="fancybox" title=""><img src="/images/ARC/ARC_outline_weak.png" alt="" /></a></p>
+
+<ol>
+<li><code>firstname</code> is <code>@"natsu"</code> object&rsquo;s holder, in other words, <code>fistname</code> is <code>NSString</code> type object&rsquo;s strong reference.</li>
+<li>Using qualifier <code>__weak</code> to desprate that <code>weakName</code> is a weak reference and can access <code>@"natsu"</code>, but it&rsquo;s not <code>@"natsu"</code>&rsquo;s holder.</li>
+<li>After <code>firstName</code> pointing to new object <code>@"maki"</code> and becoming its holder, the previous object <code>@"natsu"</code> has no holder and be destroyed immediately. At the same time, var <code>weakName</code> becomes <code>nil</code> automatically.</li>
+</ol>
+
+
+<h4>Variable Qualifiers</h4>
+
+<p><code>__strong, __weak, __unsafe_unretained, __autoreleasing</code></p>
+
+<ul>
+<li><p><strong>__strong</strong> is the default. An object remains “alive” as long as there is a strong pointer to it.</p></li>
+<li><p><strong>__weak</strong> specifies a reference that does not keep the referenced object alive. A weak reference is set to <code>nil</code> when there are no strong references to the object.</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSString</span> <span class="n">__weak</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFormat:</span><span class="s">@&quot;First Name: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span> <span class="n">firstName</span><span class="p">]];</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;string: %@&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">);</span> <span class="c1">//string is nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p><strong>__unsafe_unretained</strong> specifies a reference that does not keep the referenced object alive and is not set to <code>nil</code> when there are no strong references to the object. If the object it references is deallocated, the pointer is left dangling.</p></li>
+<li><p><strong>__autoreleasing</strong> is used to denote arguments that are passed by reference (<code>id *</code>) and are autoreleased on return. It delayes the release of object, such as:</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">generateErrorInVariable:</span><span class="p">(</span><span class="n">__autoreleasing</span> <span class="n">NSError</span> <span class="o">**</span><span class="p">)</span><span class="nv">paramError</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">....</span>
+</span><span class='line'>    <span class="o">*</span><span class="n">paramError</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSError</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDomain:</span><span class="s">@&quot;MyApp&quot;</span> <span class="nl">code:</span><span class="mi">1</span> <span class="nl">userInfo:</span><span class="n">errorDictionary</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">....</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">generateErrorInVariable:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Error = %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The returned value of functions as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="c1">//non-ARC</span>
+</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">stringTest</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">retStr</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithString:</span><span class="err">@”</span><span class="n">test</span><span class="err">”</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">retStr</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ARC</span>
+</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">stringTest</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">__autoreleasing</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">retStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithString:</span><span class="s">@&quot;test&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">retStr</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>About <em>@property</em></h2>
+
+<h3>Ownership</h3>
+
+<p>Here is relationship between propertis and variale qualifiers.</p>
+
+<table>
+<thead>
+<tr>
+<th>Property     </th>
+<th> Qualifier     </th>
+<th align="center"> Ownership</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strong       </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+<tr>
+<td>weak         </td>
+<td> __weak        </td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>unsafe_unretained</td>
+<td> __unsafe_unretained</td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>copy         </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+<tr>
+<td>assign       </td>
+<td> __unsafe_unretained</td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>retain       </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li><em>delegate</em> or <em>outlet</em> should be declared as <em>weak</em></li>
+<li>Scalar varibles should be declared as <em>assign</em>, such as <em>int, BOOL</em></li>
+</ul>
+
+
+<h3>readwrite, readonly</h3>
+
+<p>Pay attention to <strong>Readonly</strong> property under ARC.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Generally, we do not need the ownership of vars declared as <em>readonly</em>. But under ARC, the upper code will obtain error message:</p>
+
+<blockquote><p>“ARC forbids synthesizing a property of an Objective-C object with unspecified ownership or storage attribute”</p></blockquote>
+
+<p>So the ownership of the var should be declared.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s unnecessary to declare the var&rsquo;s ownership.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Wei Li</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-17T17:45:00+08:00" pubdate data-updated="true">Jun 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://weiliv.github.io/blog/2013/06/17/arc-notes/" data-via="Victor1ee" data-counturl="http://weiliv.github.io/blog/2013/06/17/arc-notes/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/14/ios7-ui-preview/" title="Previous Post: iOS7 UI Preview">&laquo; iOS7 UI Preview</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/18/arc-notes-part-2/" title="Next Post: ARC Notes - Part 2 - More about Lifecycles">ARC Notes - Part 2 - More about Lifecycles &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/">iTunes Connect: Can't Save App Information 导致不能提交新版本的解决方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/18/arc-notes-part-2/">ARC Notes - Part 2 - More About Lifecycles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/17/arc-notes/">ARC Notes - Part 1 - Basics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/ios7-ui-preview/">iOS7 UI Preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/">Getting MD5 or SHA1 From NSData/NSString</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+
+<section>
+    <h1>On Sina Weibo:</h1>
+    <div>
+        <wb:follow-button uid="1880452127" type="gray_2" width="136" height="24" ></wb:follow-button>
+    </div>
+</section>
+
+
+</html>
+
+<section>
+  <h1>On Twitter:</h1>
+  <div>
+    <p><br /><a href="http://twitter.com/Victor1ee" target="_blank">My Tweets, on Twitter.</a></p>
+    <a href="http://twitter.com/Victor1ee" class="twitter-follow-button" data-show-count="">Follow @Victor1ee</a>
+  </div>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Wei Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

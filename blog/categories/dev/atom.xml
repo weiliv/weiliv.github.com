@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DEV | Meet @五角场民工]]></title>
+  <link href="http://weiliv.github.io/blog/categories/dev/atom.xml" rel="self"/>
+  <link href="http://weiliv.github.io/"/>
+  <updated>2014-09-09T20:27:54+08:00</updated>
+  <id>http://weiliv.github.io/</id>
+  <author>
+    <name><![CDATA[Wei Li]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Getting MD5 or SHA1 from NSData/NSString]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/"/>
+    <updated>2013-06-03T18:58:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring</id>
+    <content type="html"><![CDATA[<p>Calculating the <code>md5</code> or <code>sha1</code> hash from <code>NSData/NSString</code> in iOS sdk is pretty simple.</p>
+
+<h4>Step 1:</h4>
+
+<p>The very first thing you need to do is import CommonCrypto’s CommonDigest.h</p>
+
+<p>```objectivec</p>
+
+<h1>import &lt;CommonCrypto/CommonDigest.h></h1>
+
+<p>```</p>
+
+<h4>Step 2:</h4>
+
+<p>Here is Code （SHA1 from NSData）:</p>
+
+<p>```objectivec
+NSString <em>file = [[NSBundle mainBundle] pathForResource:@&ldquo;<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#111;&#102;&#x66;&#108;&#105;&#110;&#101;&#x4c;&#111;&#x61;&#x64;&#x69;&#x6e;&#103;&#x40;&#x32;&#x78;&#46;&#112;&#110;&#x67;">&#x6f;&#102;&#x66;&#108;&#105;&#110;&#x65;&#76;&#x6f;&#x61;&#100;&#x69;&#110;&#x67;&#x40;&#50;&#x78;&#x2e;&#112;&#110;&#103;</a>&rdquo; ofType:nil];
+NSData </em>data = [NSData dataWithContentsOfFile:file];
+uint8_t digest[CC_SHA1_DIGEST_LENGTH];</p>
+
+<p>CC_SHA1(data.bytes, data.length, digest);
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];</p>
+
+<p>for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++) {</p>
+
+<pre><code>[output appendFormat:@"%02x", digest[i]];
+</code></pre>
+
+<p>}
+```</p>
+
+<p>SHA1 from NSString:</p>
+
+<p>```objectivec
+&ndash; (NSString<em>)sha1:(NSString</em>)input {</p>
+
+<pre><code>const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+NSData *data = [NSData dataWithBytes:cstr length:input.length];
+
+uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+
+CC_SHA1(data.bytes, data.length, digest);
+
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++)
+    [output appendFormat:@"%02x", digest[i]];
+
+return output; 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>MD5 from NSString:</p>
+
+<p>```objectivec
+&ndash; (NSString <em>) md5:(NSString </em>) input {</p>
+
+<pre><code>const char *cStr = [input UTF8String];
+unsigned char digest[16];
+CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+
+NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_MD5_DIGEST_LENGTH; i++)
+    [output appendFormat:@"%02x", digest[i]];
+
+return  output;
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[the Output of UIImage.size]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/01/the-output-of-uiimage-dot-size/"/>
+    <updated>2013-06-01T14:11:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/01/the-output-of-uiimage-dot-size</id>
+    <content type="html"><![CDATA[<p>The <code>size</code> reported by <code>UIImage</code> is in points, not pixels. You need to take into account the <code>scale</code> property of <code>UIImage</code>.</p>
+
+<p>In other words, if <code>test.jpg</code> is 1000x1000 then <code>UIImage.size</code> will report 1000x1000. If <code>test@2x.png</code> is 2000x2000 then <code>UIImage.size</code> will also report 1000x1000. But in the 2nd case, <code>UIImage.scale</code> will report 2.</p>
+
+<p><code>CGImageGetWidth</code> reports its width in pixels, not points. Or o convert UIImage points into pixels, you need to multiply by scale.</p>
+
+<p><code>objectivec
+UIImage *image = [UIImage imageNamed:@"someImage.png"];
+NSInteger pixelsInWidth = CGImageGetWidth(image.CGImage);
+//or
+pixelsInWidth = image.size.width * image.scale;
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Objective-C Syntax]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax/"/>
+    <updated>2013-05-26T19:06:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax</id>
+    <content type="html"><![CDATA[<p>Apple Inc&rsquo;s WWDC2012 involved lots of new properties of Objective-C, helping developpers write code with much more efficiency. What a pity that it is so late since I learned about thar from the WWDC2012 conference videos published on itunes.</p>
+
+<h3>Object Literals</h3>
+
+<p>That&rsquo;s awsome! Object literals enable you define NSNumber/NSArray/NSdictionary conveneiently. Let&rsquo;s review the tranditional method to define those objects:</p>
+
+<p><code>objectivec
+NSNumber * number = [NSNumber numberWithInt:1];
+NSArray * array = [NSArray arrayWithObjects:@"one", @"two", nil];
+NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:@"value1", @"key1", @"value2", @"key2", nil];
+</code></p>
+
+<p>Now the above code can be refactered as follows,</p>
+
+<p><code>objectivec
+NSNumber * number = @1;
+NSArray * array = @[@"one", @"two"];
+NSDictionary * dict = @{@"key1":@"value1", @"key2":@"value2"};
+</code>
+So neat!:) There is no longer need to append disgusting &ldquo;nil&rdquo; at the end of array and now the dictionay KV object&rsquo;s key can be place first! More examples as follows:</p>
+
+<p>``` objectivec
+// integer
+NSNumber <em>fortyTwo = @42;             // same as [NSNumber numberWithInt:42]
+NSNumber </em>fortyTwoUnsigned = @42U;    // same as [NSNumber numberWithUnsignedInt:42U]
+NSNumber <em>fortyTwoLong = @42L;        // same as [NSNumber numberWithLong:42L]
+NSNumber </em>fortyTwoLongLong = @42LL;   // same as [NSNumber numberWithLongLong:42LL]</p>
+
+<p>// float
+NSNumber <em>piFloat = @3.141592654F;    // same as [NSNumber numberWithFloat:3.141592654F]
+NSNumber </em>piDouble = @3.1415926535;   // same as [NSNumber numberWithDouble:3.1415926535]</p>
+
+<p>// bool
+NSNumber <em>yesNumber = @YES;           // same as [NSNumber numberWithBool:YES]
+NSNumber </em>noNumber = @NO;             // same as [NSNumber numberWithBool:NO]</p>
+
+<p>// array with zero object
+NSArray * array = @[];                // same as [NSArray array]</p>
+
+<p>// dictonary with zero KV
+NSDictionary * dict = @{};            // same as [NSDictionary dictionary]
+```
+Aha, the code now are much more readable and beautiful~</p>
+
+<h3>Tranverse Elements</h3>
+
+<p>While the <code>for in</code> and <code>for(int i = 0)</code> are familiar to us, and tranversing a dictionary is always anoyed us as:</p>
+
+<p>``` objectivec
+NSDictionary * dict = …
+NSArray * keys = [dict allKeys];
+for (NSString * key in keys) {</p>
+
+<pre><code>NSString * value = [dict objectForKey:key];
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Throw that away! Now you can tranverse elements with block!</p>
+
+<p>``` objectivec
+[lines enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL *stop) {
+}];</p>
+
+<p>[_urlArguments enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+}];
+```
+See? The block also support NSDictionary!</p>
+
+<h3>Subscripting Method</h3>
+
+<p>This new feature involed in WWDC2012 allows you get/set objects in array with bracket <code>[]</code>. In other words, the previous <code>[array objectAtIndex:idx]</code> and <code>[array replaceObjectAtIndex:idx withObject:obj]</code> can be rewitten as <code>array[idx]</code> and <code>array[idx] = obj</code>. Here are some examples:</p>
+
+<p>``` objectivec
+NSArray * array = @[ @&ldquo;111&rdquo;, @&ldquo;222&rdquo;, @&ldquo;333&rdquo;];
+for (int i = 0; i &lt; 3; ++i) {</p>
+
+<pre><code>NSLog(@"array[i] = %@", array[i]);
+</code></pre>
+
+<p>}</p>
+
+<p>NSMutableDictionary * dict =[@{  @1: @&ldquo;value1&rdquo;,</p>
+
+<pre><code>                             @2: @"value2",
+                             @3: @"value3" } mutableCopy];
+</code></pre>
+
+<p>for (int i = 0; i &lt; 3; ++i) {</p>
+
+<pre><code>NSLog(@"dict[%d] = %@", i, dict[@(i+1)]);
+dict[@(i+1)] = [NSString stringWithFormat:@"new %@", dict[@(i+1)]];
+</code></pre>
+
+<p>}</p>
+
+<p>[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {</p>
+
+<pre><code>NSLog(@"dict[%@] = %@", key, dict[key]);
+</code></pre>
+
+<p>}];
+```</p>
+
+<p>So the feature also works with NSDictionary. Moreover, you can provide this <code>[]</code> feature in your own class, just implmenting these two method:</p>
+
+<p><code>objectivec
+- (id)objectAtIndexedSubscript:(NSUInterger)idx;
+- (void)setObject:(id)value atIndexedSubscript:(NSUInteger)idx;
+</code></p>
+
+<p>In fact, this feature is not unfamiliar in other language, like C++ or Java. Maybe Objective-C was born in 1980s, it never improve that.
+But, better late than never!~ Objective-C is always moving forward!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NSRegularExpression Notes and Cheat Sheet]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/"/>
+    <updated>2013-05-19T21:30:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m so shamed that little knowledge about RegularExpression was armed. Then I found a <a href="http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet">blog</a> post by <a href="http://www.raywenderlich.com/">Ray Wenderlich</a>, an independent iOS developer whoes articals did have helped me a lot.</p>
+
+<p>A regular expression (commonly known as a “regex”) is a string or a sequence of characters that specifies a pattern. Think of it as a search string — but with super powers!</p>
+
+<p>A plain old search in a text editor or word processor will allow you to find simple matches. A regular expression can also perform these simple searches, but it takes things a step further and lets you search for patterns , such as two digits followed by letter, or three letters followed by a hyphen.</p>
+
+<p>This pattern matching allows you to do useful things like validate fields (phone numbers, email addresses), check user input, perform advanced text manipulation and much much more.</p>
+
+<p>In addition, I’ll give you a handy NSRegularExpression Cheat Sheet PDF that you can print out and use as reference as you’re developing!</p>
+
+<p>Without further ado, it’s time to start crunching some regular expressions.</p>
+
+<h3>The Basics Introduction</h3>
+
+<p><em>Examples</em></p>
+
+<p>Let’s start with a few brief examples to show you what regular expressions look like.</p>
+
+<p>Here’s an example of a regular expression that matches the phrase “NSRegularExpression”:</p>
+
+<p><code>NSRegularExpression</code></p>
+
+<p>That’s about as simple as regular expressions get. You can use some APIs that are available in iOS to search a string of text for any part that matches this regular expression – and once you find a match, you can find where it is, or replace the text, etc.</p>
+
+<p>Here’s a slightly more complicated example – this one matches the phrase “NSRegularExpression” or “NSRegularExpressions”:</p>
+
+<p><code>NSRegularExpression(s)?</code></p>
+
+<p>This is an example of using some special characters that are available in regular expressions. The parenthesis create a group, and the question mark says “match the previous element (the group in this case) 0 or 1 times”.</p>
+
+<p>Now let’s go for a really complex example. This one matches any HTML or XML tag:</p>
+
+<p><code>&lt;([a-z][a-z0-9]*)\b[^&gt;]*&gt;(.*?)</code></p>
+
+<p>Wow, looks complicated, eh? :) Don’t worry, you’ll be learning about all the special characters in this regular expression in the rest of this tutorial, and by the time you’re done you should be able to understand how this works! :)</p>
+
+<p><em>Testing Regular Expressions</em></p>
+
+<p>In this tutorial, you’ll be creating a lot of regular expressions. If you want to try them out visually as you’re working with them, check out <a href="http://regexpal.com/">regexpal</a> , a web-based regular expression parser. Enter a regular expression in the top field, enter some text in the bottom field, and the matches in the searched text will automatically highlight.</p>
+
+<p>Load up regexpal and try out the above example expressions one at a time. Here’s some good sample text to use:</p>
+
+<p><code>NSRegularExpression tutorial or NSRegularExpressions tutorial. And here's an html tag.</code></p>
+
+<p>Pretty handy, eh? It’s great to see regular expressions in action, so you can test out your own regular expressions as you’re working with them.</p>
+
+<h3>Overall Concepts</h3>
+
+<p>Before you go any further, it’s important to understand a few core concepts about regular expressions.</p>
+
+<p><em>Literal characters</em> are the simplest kind of regular expression. They’re similar to a “find” operation in a word processor or text editor. For example, the single-character regular expression <code>t</code> will find all occurrences of the letter “t”, and the regular expression <code>hello</code> will find all appearances of “hello”. Pretty straightforward!</p>
+
+<p>Just like a programming language, there are some “reserved” characters in regular expression syntax, as follows:</p>
+
+<p><code>[</code>
+<code>( and )</code>
+<code>\</code>
+<code>*</code>
+<code>+</code>
+<code>?</code>
+<code>{ and }</code>
+<code>^</code>
+<code>$</code>
+<code>.</code>
+<code>|(pipe)</code>
+<code>/</code></p>
+
+<p>These characters are used for advanced pattern matching. If you want to search for one of these characters, you need to escape it with a backslash. For example, to search for all periods in a block of text, the pattern is not <code>.</code> but rather <code>\.</code> .</p>
+
+<p>As an extra complication, since regular expressions are strings themselves, the backslash character needs to be escaped when working with <code>NSString</code> and <code>NSRegularExpression</code> . That means the standard regular expression <code>\.</code> will be written as <code>\\.</code> in your code.</p>
+
+<p>To clarify the above concept in point form:</p>
+
+<ul>
+<li>The literal <code>@"\\."</code> defines a string that looks like this: .</li>
+<li>The regular expression . will then match a single period character</li>
+</ul>
+
+
+<p><em>Capturing parentheses</em> are used to group part of a pattern. For example, <code>3 (pm|am)</code> would match the text &ldquo;3 pm&rdquo; as well as the text &ldquo;3 am&rdquo;. The pipe character here ( <code>|</code>) acts like an OR operator. You can include as many pipe characters in your regular expression as you would like. As an example, <code>(Tom|Dick|Harry)</code> is a valid pattern.</p>
+
+<p>Grouping with parentheses comes in handy when you need to optionally match a certain text string. Say you are looking for &ldquo;November&rdquo; in some text, but the user may or may not have abbreviated the month as &ldquo;Nov&rdquo;. You can define the pattern as <code>Nov(ember)?</code> where the question mark after the capturing parentheses means that whatever is inside the parentheses is optional.</p>
+
+<p>These parentheses are termed &ldquo;capturing&rdquo; because they capture the matched content and allow you reference it in other places in your regular expression.</p>
+
+<p>As an example, assume you have the string &ldquo;Say hi to Harry&rdquo;. If you created a search-and-replace regular expression to replace any occurences of <code>(Tom|Dick|Harry)</code> with <code>that guy $1</code> , the result would be &ldquo;Say hi to that guy Harry&rdquo;. The <code>$1</code> allows you to reference the first captured group of the preceding rule.</p>
+
+<p><em>Character classes</em> represent a set of possible single-character matches. Character classes appear between square brackets ( <code>[</code> and <code>]</code> ).</p>
+
+<p>As an example, the regular expression <code>t[aeiou]</code> will match &ldquo;ta&rdquo;, &ldquo;te&rdquo;, &ldquo;ti&rdquo;, &ldquo;to&rdquo;, or &ldquo;tu&rdquo;. You can have as many character possibilities inside the square brackets as you like, but remember that any single character in the set will match. <code>[aeiou]</code> looks like five characters, but it actually means &ldquo;a&rdquo; or &ldquo;e&rdquo; or &ldquo;i&rdquo; or &ldquo;o&rdquo; or &ldquo;u&rdquo;.</p>
+
+<p>You can also define a range in a character class if the characters appear consecutively. For example, to search for a number between 100 to 109, the pattern would be <code>10[0-9]</code> . This returns the same results as 10[0123456789] , but using ranges makes your regular expressions much cleaner and easier to understand.</p>
+
+<p>But character classes aren&rsquo;t limited to numbers — you can do the same thing with characters. For instance, <code>[a-f]</code> will match &ldquo;a&rdquo;, &ldquo;b&rdquo;, &ldquo;c&rdquo;, &ldquo;d&rdquo;, &ldquo;e&rdquo;, or &ldquo;f&rdquo;.</p>
+
+<p>Character classes usually contain the characters you want to match, but what if you want to explicitly not match a character? You can also define negated character classes, which use the <code>^</code> character. For example, the pattern <code>t[^o]</code> will match any combination of &ldquo;t&rdquo; and one other character except for the single instance of &ldquo;to&rdquo;.</p>
+
+<h3>NSRegularExpressions Cheat Sheet</h3>
+
+<p>Regular expressions are a great example of a simple syntax that can end up with some very complicated arrangements! Even the best regular expression wranglers keep a cheat sheet handy for those odd corner cases.</p>
+
+<p>There is <a href="http://cdn5.raywenderlich.com/downloads/RW-NSRegularExpression-Cheatsheet.pdf">NSRegularExpression Cheat Sheet</a> PDF to help!</p>
+
+<p>In addition, here&rsquo;s an abbreviated form of the cheat sheet below with some additional explanations to get started:</p>
+
+<ul>
+<li><code>.</code> matches any character. <code>p.p</code> matches pop, pup, pmp, p@p, and so on.</li>
+<li><code>\w</code> matches any &ldquo;word-like&rdquo; character which includes the set of numbers, letters, and underscore, but does not match punctuation or other symbols. <code>hello\w</code> will match &ldquo;hello_9&rdquo; and &ldquo;helloo&rdquo; but not &ldquo;hello!&rdquo;</li>
+<li><code>\d</code> matches a numeric digit, which in most cases means <code>[0-9]</code> . <code>\d\d?:\d\d</code> will match strings in time format, such as &ldquo;9:30&rdquo; and &ldquo;12:45&rdquo;.</li>
+<li><code>\b</code> matches word boundary characters such as spaces and punctuation. <code>to\b</code> will match the &ldquo;to&rdquo; in &ldquo;to the moon&rdquo; and &ldquo;to!&rdquo;, but it will not match &ldquo;tomorrow&rdquo;. <code>\b</code> is handy for &ldquo;whole word&rdquo; type matching.</li>
+<li><code>\s</code> matches whitespace characters such as spaces, tabs, and newlines. <code>hello\s</code> will match &ldquo;hello &rdquo; in &ldquo;Well, hello there!&rdquo;.</li>
+<li><code>^</code> matches at the beginning of a line. Note that this particular <code>^</code> is different from <code>^</code> inside of the square brackets! For example, ^Hello will match against the string &ldquo;Hello there&rdquo;, but not &ldquo;He said Hello&rdquo;.</li>
+<li><code>$</code> matches at the end of a line. For example, the <code>end$</code> will match against &ldquo;It was the end&rdquo; but not &ldquo;the end was near&rdquo;.</li>
+<li><code>*</code> matches the previous element 0 or more times. <code>12*3</code> will match 13, 123, 1223, 122223, and 1222222223.</li>
+<li><code>+</code> matches the previous element 1 or more times. 12+3 will match 123, 1223, 122223, 1222222223, but not 13.</li>
+<li>Curly braces <code>{}</code> contain the minimum and maximum number of matches. For example, <code>10{1,2}1</code> will match both &ldquo;101&rdquo; and &ldquo;1001&rdquo; but not &ldquo;10001&rdquo; as the minimum number of matches is <code>1</code> and the maximum number of matches is <code>2</code> . <code>He[Ll]{2,}o</code> will match &ldquo;HeLLo&rdquo; and &ldquo;HellLLLllo&rdquo; and any such silly variation of &ldquo;hello&rdquo; with lots of L&rsquo;s, since the minimum number of matches is 2 but the maximum number of matches is not set — and therefore unlimited!</li>
+</ul>
+
+
+<p>That&rsquo;s <em>may</em> enough to get started!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Create array of functions in ObjC]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/08/create-array-of-functions-in-objc/"/>
+    <updated>2013-05-08T13:59:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/08/create-array-of-functions-in-objc</id>
+    <content type="html"><![CDATA[<p>A requirement as follows,  <br/>
+We need to test all the DotNet Http request APIs in one simple tester app. But that will anoy me much if single API is called line after line. So an array constructed with API functions will walk around that duplication of labor.  <br/>
+Here is the code: <br/>
+``` objectivec
++ (NSArray *)createAPIFunctionsArray {</p>
+
+<pre><code>NSMutableArray *selectorArray = [NSMutableArray array];
+[selectorArray addObject:[NSValue valueWithPointer:@selector(initInfoWithBlock:)]];
+//...
+return selectorArray;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>It looks like funtion pointer in C, showing as @selector in ObjC. We use the selector array like this:</p>
+
+<p>``` objectivec
+[XXX performSelector:[[selectorArray objectAtIndex:self.index] pointerValue] withObject:^(RequestStatusData *resultData){</p>
+
+<pre><code>//code block as param here ...
+//...
+</code></pre>
+
+<p>}];
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

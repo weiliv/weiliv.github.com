@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iOS | Meet @五角场民工]]></title>
+  <link href="http://weiliv.github.io/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://weiliv.github.io/"/>
+  <updated>2014-09-09T20:27:54+08:00</updated>
+  <id>http://weiliv.github.io/</id>
+  <author>
+    <name><![CDATA[Wei Li]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[iTunes Connect: Can't save app information 导致不能提交新版本的解决方法]]></title>
+    <link href="http://weiliv.github.io/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/"/>
+    <updated>2014-09-09T18:18:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>iTunesConnect改版后UI上更酷炫了，但是功能上却出现了一些让人抓狂的bug。</p>
+
+<p>周末提交app给apple审核，打包上传后发现点击“Submit For Review”总是出现下面的错误：</p>
+
+<p><em>Your app information could not be saved. Try agein. If the problem persists, cantact us.</em></p>
+
+<p>然后就遵循提示试了几次，还是出现相同的bug。Chrome抓包显示的是 <strong>We&rsquo;ve got a server error &hellip; 500</strong>  一度想等它恢复。 后来去so上看有木有遇到相同问题的小伙伴，还真有，不过大多是版本号冲突的原因，我也尝试着更改版本号，问题依旧。。</p>
+
+<p>后来发现一韩国哥们也遇到了相同的问题，于是怀疑是不是包里面包含的中文字符导致不能识别，然后就发现了问题所在，<strong>Product Name</strong>不能为中文！之后把XCode-Targets-Packaging下的Product Name改成了英文，相应的在info.plist文件中修改Bundle name和Bundle display name为之前的中文app名。之后打包上传，顺利地Submit For Review了。</p>
+
+<p>Apple， 还我为你折腾的这两三个小时啊！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ARC Notes - Part 2 - More about Lifecycles]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/18/arc-notes-part-2/"/>
+    <updated>2013-06-18T18:39:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/18/arc-notes-part-2</id>
+    <content type="html"><![CDATA[<h2><em>__strong</em></h2>
+
+<p>Let&rsquo;s talk over the vars declared as <em>__strong</em> or declared default as <em>__strong</em>.</p>
+
+<p>```objectivec
+{</p>
+
+<pre><code>/*
+ * create object and take its ownership
+ */
+id __strong obj = [[NSObject alloc] init];
+
+/*
+ * obj always has ownership inside here
+ */
+</code></pre>
+
+<p>}</p>
+
+<pre><code>/*
+ * out of the lifecycle, the object of obj has been released
+ */
+</code></pre>
+
+<p>```</p>
+
+<p>```objectivec
+{</p>
+
+<pre><code>/*
+ * create object but has no ownership
+ */
+id __strong obj = [NSMutableArray array];
+
+/*
+ * because obj is __strong, it hold the object
+ * compiler put obj in autoreleasepool
+ */
+</code></pre>
+
+<p>}</p>
+
+<pre><code>/*
+ * out of the lifecycle, the object of obj has been released
+ */
+</code></pre>
+
+<p>```</p>
+
+<p>Though the var <em>obj</em> is not obtained by <em>alloc/new/copy/mutableCopy</em> functions, the <em>obj</em> is <em>__strong</em> reference and can be holder. That&rsquo;s all what compiler do.</p>
+
+<p>In addition, var&rsquo;s default type is <em>__stong</em>, and if it reference to new values, the old one is released. <em>obj = nil</em> means release current object referenced by <em>obj</em>.</p>
+
+<h2>__weak</h2>
+
+<h3>about compiler</h3>
+
+<p>And the <em>__weak</em> vars is put into <em>autoreleasepool</em> when it is being used. Why? Just turn to its definition~ What will happen when the object referenced by weak vars is released/destroyed? That&rsquo;ll crash! So the compiler put it to an autoreleasepool to solve the problem.</p>
+
+<h3>retain cycle</h3>
+
+<p>In most of the situations, it&rsquo;s enough to user <em>__strong</em>. But when it comes to <strong>retain cycle</strong>, <em>__weak</em> takes its place.</p>
+
+<h3>outlet</h3>
+
+<p>There&rsquo;s an advantage when outlet user <em>weak property</em>. It can simplify the process of viewDidUnload/didReceiveMemeoryWarning.</p>
+
+<p>```objectivec
+@property (nonatomic, strong) IBOutlet UILabel *label;</p>
+
+<p>&ndash;(void)didReceiveMemoryWarning {</p>
+
+<pre><code>[super didReceiveMemoryWarning];
+if (self.isViewLoaded &amp;&amp; !self.view.window) {
+    self.view = nil;
+    self.label = nil; // release object
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>If no <em>self.label = nil</em> here, there is a leak of memory. But when use weak property:</p>
+
+<p>```objectivec
+@property (nonatomic, weak) IBOutlet UILabel *label;</p>
+
+<p>&ndash;(void)didReceiveMemoryWarning {</p>
+
+<pre><code>[super didReceiveMemoryWarning];
+if (self.isViewLoaded &amp;&amp; !self.view.window) {
+    self.view = nil;
+    //nothing to do here...
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>But not all outlet should use weak property, such as self.vew … It depends.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ARC Notes - Part 1 - Basics]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/17/arc-notes/"/>
+    <updated>2013-06-17T17:45:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/17/arc-notes</id>
+    <content type="html"><![CDATA[<h2>What is ARC?</h2>
+
+<blockquote><p><em>Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Rather than having to think about retain and release operations, ARC allows you to concentrate on the interesting code.</em></p></blockquote>
+
+<h3>Advantages of ARC</h3>
+
+<ol>
+<li>Less work</li>
+<li>Neater appearance</li>
+<li>More efficient code</li>
+</ol>
+
+
+<h3>Basic Rules of ARC</h3>
+
+<ul>
+<li><code>retain, release, autorelease, dealloc</code> are auto-inserted by compliler and can&rsquo;t be called in our code.</li>
+<li>Though <code>dealloc</code> can be overload, you can&rsquo;t call <code>[super dealloc]</code>.</li>
+<li>use <code>__bridge</code> to cast between <code>id</code> and <code>void *</code></li>
+<li>replace <code>NSAutoReleasePool</code> with <code>@autoreleasepool</code></li>
+</ul>
+
+
+<h3>Objectics under ARC</h3>
+
+<blockquote><p>ARC introduces several new lifetime qualifiers for objects, and weak references. A weak reference does not extend the lifetime of the object it points to, and automatically becomes nil when there are no strong references to the object.</p>
+
+<p>You should take advantage of these qualifiers to manage the object graphs in your program. In particular, ARC does not guard agains strong reference cycles. Judicious use of weak relationships will help to ensure you don’t create cycles.</p></blockquote>
+
+<h4>Strong reference</h4>
+
+<p><a href="/images/ARC/ARC_outline_strong.JPG" class="fancybox" title=""><img src="/images/ARC/ARC_outline_strong.JPG" alt="" /></a></p>
+
+<h4>Weak reference</h4>
+
+<p><a href="/images/ARC/ARC_outline_weak.png" class="fancybox" title=""><img src="/images/ARC/ARC_outline_weak.png" alt="" /></a></p>
+
+<ol>
+<li><code>firstname</code> is <code>@"natsu"</code> object&rsquo;s holder, in other words, <code>fistname</code> is <code>NSString</code> type object&rsquo;s strong reference.</li>
+<li>Using qualifier <code>__weak</code> to desprate that <code>weakName</code> is a weak reference and can access <code>@"natsu"</code>, but it&rsquo;s not <code>@"natsu"</code>&rsquo;s holder.</li>
+<li>After <code>firstName</code> pointing to new object <code>@"maki"</code> and becoming its holder, the previous object <code>@"natsu"</code> has no holder and be destroyed immediately. At the same time, var <code>weakName</code> becomes <code>nil</code> automatically.</li>
+</ol>
+
+
+<h4>Variable Qualifiers</h4>
+
+<p><code>__strong, __weak, __unsafe_unretained, __autoreleasing</code></p>
+
+<ul>
+<li><p><strong>__strong</strong> is the default. An object remains “alive” as long as there is a strong pointer to it.</p></li>
+<li><p><strong>__weak</strong> specifies a reference that does not keep the referenced object alive. A weak reference is set to <code>nil</code> when there are no strong references to the object.</p></li>
+</ul>
+
+
+<p><code>objectivec
+NSString __weak *string = [[NSString alloc] initWithFormat:@"First Name: %@", [self firstName]];
+NSLog(@"string: %@", string); //string is nil
+</code></p>
+
+<ul>
+<li><p><strong>__unsafe_unretained</strong> specifies a reference that does not keep the referenced object alive and is not set to <code>nil</code> when there are no strong references to the object. If the object it references is deallocated, the pointer is left dangling.</p></li>
+<li><p><strong>__autoreleasing</strong> is used to denote arguments that are passed by reference (<code>id *</code>) and are autoreleased on return. It delayes the release of object, such as:</p></li>
+</ul>
+
+
+<p>```objectivec
+&ndash; (void) generateErrorInVariable:(__autoreleasing NSError **)paramError {</p>
+
+<pre><code>....
+*paramError = [[NSError alloc] initWithDomain:@"MyApp" code:1 userInfo:errorDictionary];
+</code></pre>
+
+<p>}</p>
+
+<p>&hellip;.
+{</p>
+
+<pre><code>NSError *error = nil;
+[self generateErrorInVariable:&amp;error];
+NSLog(@"Error = %@", error);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>The returned value of functions as:</p>
+
+<p>```objectivec
+//non-ARC
+&ndash;(NSString *)stringTest
+{</p>
+
+<pre><code>NSString *retStr = [[[NSString alloc] initWithString:@”test”] autorelease];
+return retStr;
+</code></pre>
+
+<p>}</p>
+
+<p>// ARC
+&ndash;(NSString *)stringTest
+{</p>
+
+<pre><code>__autoreleasing NSString *retStr = [NSString alloc] initWithString:@"test"];
+
+return retStr;
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>About <em>@property</em></h2>
+
+<h3>Ownership</h3>
+
+<p>Here is relationship between propertis and variale qualifiers.</p>
+
+<table>
+<thead>
+<tr>
+<th>Property     </th>
+<th> Qualifier     </th>
+<th align="center"> Ownership</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strong       </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+<tr>
+<td>weak         </td>
+<td> __weak        </td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>unsafe_unretained</td>
+<td> __unsafe_unretained</td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>copy         </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+<tr>
+<td>assign       </td>
+<td> __unsafe_unretained</td>
+<td align="center"> NO</td>
+</tr>
+<tr>
+<td>retain       </td>
+<td> __strong      </td>
+<td align="center"> YES</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li><em>delegate</em> or <em>outlet</em> should be declared as <em>weak</em></li>
+<li>Scalar varibles should be declared as <em>assign</em>, such as <em>int, BOOL</em></li>
+</ul>
+
+
+<h3>readwrite, readonly</h3>
+
+<p>Pay attention to <strong>Readonly</strong> property under ARC.
+<code>objectivec
+@property (readonly, nonatomic) NSString *name;
+</code>
+Generally, we do not need the ownership of vars declared as <em>readonly</em>. But under ARC, the upper code will obtain error message:</p>
+
+<blockquote><p>“ARC forbids synthesizing a property of an Objective-C object with unspecified ownership or storage attribute”</p></blockquote>
+
+<p>So the ownership of the var should be declared.
+<code>objectivec
+@property (strong, readonly, nonatomic) NSString *name;
+</code>
+But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s unnecessary to declare the var&rsquo;s ownership.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS7 UI Preview]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/14/ios7-ui-preview/"/>
+    <updated>2013-06-14T18:55:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/14/ios7-ui-preview</id>
+    <content type="html"><![CDATA[<p>To keep current :), my &ldquo;aged&rdquo; iPhone4 was renewed with iOS7 involed in WWDC2013.</p>
+
+<p><ul class="gallery">
+<li><a href="/images/ios7_UI_Preview/IMG_0103.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0103_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0102.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0102_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0090.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0090_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0091.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0091_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0092.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0092_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0093.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0093_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0094.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0094_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0095.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0095_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0096.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0096_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0097.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0097_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0098.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0098_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0099.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0099_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0100.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0100_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0101.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0101_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0104.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0104_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0105.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0105_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0106.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0106_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0107.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0107_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0108.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0108_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0110.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0110_m.jpg" alt="" /></a></li>
+</ul></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting MD5 or SHA1 from NSData/NSString]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/"/>
+    <updated>2013-06-03T18:58:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring</id>
+    <content type="html"><![CDATA[<p>Calculating the <code>md5</code> or <code>sha1</code> hash from <code>NSData/NSString</code> in iOS sdk is pretty simple.</p>
+
+<h4>Step 1:</h4>
+
+<p>The very first thing you need to do is import CommonCrypto’s CommonDigest.h</p>
+
+<p>```objectivec</p>
+
+<h1>import &lt;CommonCrypto/CommonDigest.h></h1>
+
+<p>```</p>
+
+<h4>Step 2:</h4>
+
+<p>Here is Code （SHA1 from NSData）:</p>
+
+<p>```objectivec
+NSString <em>file = [[NSBundle mainBundle] pathForResource:@&ldquo;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#111;&#x66;&#102;&#x6c;&#105;&#x6e;&#x65;&#76;&#x6f;&#97;&#100;&#105;&#x6e;&#x67;&#64;&#x32;&#120;&#x2e;&#x70;&#x6e;&#103;">&#x6f;&#x66;&#x66;&#x6c;&#105;&#x6e;&#x65;&#76;&#x6f;&#97;&#100;&#105;&#110;&#x67;&#64;&#x32;&#x78;&#46;&#112;&#x6e;&#x67;</a>&rdquo; ofType:nil];
+NSData </em>data = [NSData dataWithContentsOfFile:file];
+uint8_t digest[CC_SHA1_DIGEST_LENGTH];</p>
+
+<p>CC_SHA1(data.bytes, data.length, digest);
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];</p>
+
+<p>for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++) {</p>
+
+<pre><code>[output appendFormat:@"%02x", digest[i]];
+</code></pre>
+
+<p>}
+```</p>
+
+<p>SHA1 from NSString:</p>
+
+<p>```objectivec
+&ndash; (NSString<em>)sha1:(NSString</em>)input {</p>
+
+<pre><code>const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+NSData *data = [NSData dataWithBytes:cstr length:input.length];
+
+uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+
+CC_SHA1(data.bytes, data.length, digest);
+
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++)
+    [output appendFormat:@"%02x", digest[i]];
+
+return output; 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>MD5 from NSString:</p>
+
+<p>```objectivec
+&ndash; (NSString <em>) md5:(NSString </em>) input {</p>
+
+<pre><code>const char *cStr = [input UTF8String];
+unsigned char digest[16];
+CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+
+NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_MD5_DIGEST_LENGTH; i++)
+    [output appendFormat:@"%02x", digest[i]];
+
+return  output;
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Modern Objective-C Syntax - Meet @五角场民工</title>
+  <meta name="author" content="Wei Li">
+
+  
+  <meta name="description" content="Apple Inc&rsquo;s WWDC2012 involved lots of new properties of Objective-C, helping developpers write code with much more efficiency. What a pity that &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Meet @五角场民工" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<!-- Load jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery.noConflict(); // ender.js conflicts with jQuery
+</script>
+ 
+<!-- Load FancyBox -->
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" />
+<script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+ 
+<!-- Fix FancyBox style for OctoPress -->
+<style type="text/css">
+  .fancybox-wrap { position: fixed !important; }
+  .fancybox-opened {
+    -webkit-border-radius: 4px !important;
+       -moz-border-radius: 4px !important;
+            border-radius: 4px !important;
+  }
+  .fancybox-close, .fancybox-prev span, .fancybox-next span {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+</style>
+
+ 
+<!-- Custom Scripts -->
+<script language="Javascript" type="text/javascript">
+    // ender.js gobbles jQuery's ready event: Use ender.js $ instead
+    $(document).ready(function() {
+        jQuery(".fancybox").fancybox();
+    });
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41052163-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Meet @五角场民工</a></h1>
+  
+    <h2>Blog about Apps, Web, and my life.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:weiliv.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Modern Objective-C Syntax</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-26T19:06:00+08:00" pubdate data-updated="true">May 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Apple Inc&rsquo;s WWDC2012 involved lots of new properties of Objective-C, helping developpers write code with much more efficiency. What a pity that it is so late since I learned about thar from the WWDC2012 conference videos published on itunes.</p>
+
+<h3>Object Literals</h3>
+
+<p>That&rsquo;s awsome! Object literals enable you define NSNumber/NSArray/NSdictionary conveneiently. Let&rsquo;s review the tranditional method to define those objects:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span> <span class="n">number</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithInt:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;one&quot;</span><span class="p">,</span> <span class="s">@&quot;two&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nl">dictionaryWithObjectsAndKeys:</span><span class="s">@&quot;value1&quot;</span><span class="p">,</span> <span class="s">@&quot;key1&quot;</span><span class="p">,</span> <span class="s">@&quot;value2&quot;</span><span class="p">,</span> <span class="s">@&quot;key2&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now the above code can be refactered as follows,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSNumber</span> <span class="o">*</span> <span class="n">number</span> <span class="o">=</span> <span class="err">@</span><span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;one&quot;</span><span class="p">,</span> <span class="s">@&quot;two&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span> <span class="n">dict</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="s">@&quot;key1&quot;</span><span class="o">:</span><span class="s">@&quot;value1&quot;</span><span class="p">,</span> <span class="s">@&quot;key2&quot;</span><span class="o">:</span><span class="s">@&quot;value2&quot;</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So neat!:) There is no longer need to append disgusting &ldquo;nil&rdquo; at the end of array and now the dictionay KV object&rsquo;s key can be place first! More examples as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="c1">// integer</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">fortyTwo</span> <span class="o">=</span> <span class="err">@</span><span class="mi">42</span><span class="p">;</span>             <span class="c1">// same as [NSNumber numberWithInt:42]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">fortyTwoUnsigned</span> <span class="o">=</span> <span class="err">@</span><span class="mi">42</span><span class="n">U</span><span class="p">;</span>    <span class="c1">// same as [NSNumber numberWithUnsignedInt:42U]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">fortyTwoLong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">42L</span><span class="p">;</span>        <span class="c1">// same as [NSNumber numberWithLong:42L]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">fortyTwoLongLong</span> <span class="o">=</span> <span class="err">@</span><span class="mi">42L</span><span class="n">L</span><span class="p">;</span>   <span class="c1">// same as [NSNumber numberWithLongLong:42LL]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// float</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piFloat</span> <span class="o">=</span> <span class="err">@</span><span class="mf">3.141592654F</span><span class="p">;</span>    <span class="c1">// same as [NSNumber numberWithFloat:3.141592654F]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">piDouble</span> <span class="o">=</span> <span class="err">@</span><span class="mf">3.1415926535</span><span class="p">;</span>   <span class="c1">// same as [NSNumber numberWithDouble:3.1415926535]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// bool</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">yesNumber</span> <span class="o">=</span> <span class="err">@</span><span class="n">YES</span><span class="p">;</span>           <span class="c1">// same as [NSNumber numberWithBool:YES]</span>
+</span><span class='line'><span class="n">NSNumber</span> <span class="o">*</span><span class="n">noNumber</span> <span class="o">=</span> <span class="err">@</span><span class="n">NO</span><span class="p">;</span>             <span class="c1">// same as [NSNumber numberWithBool:NO]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// array with zero object</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[];</span>                <span class="c1">// same as [NSArray array]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// dictonary with zero KV</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span> <span class="n">dict</span> <span class="o">=</span> <span class="err">@</span><span class="p">{};</span>            <span class="c1">// same as [NSDictionary dictionary]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Aha, the code now are much more readable and beautiful~</p>
+
+<h3>Tranverse Elements</h3>
+
+<p>While the <code>for in</code> and <code>for(int i = 0)</code> are familiar to us, and tranversing a dictionary is always anoyed us as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span> <span class="n">dict</span> <span class="o">=</span> <span class="err">…</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">dict</span> <span class="n">allKeys</span><span class="p">];</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">key</span> <span class="k">in</span> <span class="n">keys</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span> <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">dict</span> <span class="nl">objectForKey:</span><span class="n">key</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Throw that away! Now you can tranverse elements with block!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="p">[</span><span class="n">lines</span> <span class="nl">enumerateObjectsUsingBlock:</span><span class="o">^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">obj</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="o">*</span><span class="n">stop</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">_urlArguments</span> <span class="nl">enumerateKeysAndObjectsUsingBlock:</span><span class="o">^</span><span class="p">(</span><span class="kt">id</span> <span class="n">key</span><span class="p">,</span> <span class="kt">id</span> <span class="n">obj</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="o">*</span><span class="n">stop</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>See? The block also support NSDictionary!</p>
+
+<h3>Subscripting Method</h3>
+
+<p>This new feature involed in WWDC2012 allows you get/set objects in array with bracket <code>[]</code>. In other words, the previous <code>[array objectAtIndex:idx]</code> and <code>[array replaceObjectAtIndex:idx withObject:obj]</code> can be rewitten as <code>array[idx]</code> and <code>array[idx] = obj</code>. Here are some examples:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSArray</span> <span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span> <span class="s">@&quot;111&quot;</span><span class="p">,</span> <span class="s">@&quot;222&quot;</span><span class="p">,</span> <span class="s">@&quot;333&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;array[i] = %@&quot;</span><span class="p">,</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSMutableDictionary</span> <span class="o">*</span> <span class="n">dict</span> <span class="o">=</span><span class="p">[</span><span class="err">@</span><span class="p">{</span>  <span class="err">@</span><span class="mi">1</span><span class="o">:</span> <span class="s">@&quot;value1&quot;</span><span class="p">,</span>
+</span><span class='line'>                                 <span class="err">@</span><span class="mi">2</span><span class="o">:</span> <span class="s">@&quot;value2&quot;</span><span class="p">,</span>
+</span><span class='line'>                                 <span class="err">@</span><span class="mi">3</span><span class="o">:</span> <span class="s">@&quot;value3&quot;</span> <span class="p">}</span> <span class="n">mutableCopy</span><span class="p">];</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;dict[%d] = %@&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="err">@</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]);</span>
+</span><span class='line'>    <span class="n">dict</span><span class="p">[</span><span class="err">@</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;new %@&quot;</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="err">@</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">dict</span> <span class="nl">enumerateKeysAndObjectsUsingBlock:</span><span class="o">^</span><span class="p">(</span><span class="kt">id</span> <span class="n">key</span><span class="p">,</span> <span class="kt">id</span> <span class="n">obj</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="o">*</span><span class="n">stop</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;dict[%@] = %@&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="n">key</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So the feature also works with NSDictionary. Moreover, you can provide this <code>[]</code> feature in your own class, just implmenting these two method:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">objectAtIndexedSubscript:</span><span class="p">(</span><span class="n">NSUInterger</span><span class="p">)</span><span class="nv">idx</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">value</span> <span class="nf">atIndexedSubscript:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">idx</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In fact, this feature is not unfamiliar in other language, like C++ or Java. Maybe Objective-C was born in 1980s, it never improve that.
+But, better late than never!~ Objective-C is always moving forward!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Wei Li</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-26T19:06:00+08:00" pubdate data-updated="true">May 26<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dev/'>DEV</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax/" data-via="Victor1ee" data-counturl="http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/" title="Previous Post: NSRegularExpression Notes and Cheat Sheet">&laquo; NSRegularExpression Notes and Cheat Sheet</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/01/the-output-of-uiimage-dot-size/" title="Next Post: the Output of UIImage.size">the Output of UIImage.size &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/">iTunes Connect: Can't Save App Information 导致不能提交新版本的解决方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/18/arc-notes-part-2/">ARC Notes - Part 2 - More About Lifecycles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/17/arc-notes/">ARC Notes - Part 1 - Basics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/14/ios7-ui-preview/">iOS7 UI Preview</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/">Getting MD5 or SHA1 From NSData/NSString</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<html xmlns:wb=“http://open.weibo.com/wb”>
+<head>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+
+<section>
+    <h1>On Sina Weibo:</h1>
+    <div>
+        <wb:follow-button uid="1880452127" type="gray_2" width="136" height="24" ></wb:follow-button>
+    </div>
+</section>
+
+
+</html>
+
+<section>
+  <h1>On Twitter:</h1>
+  <div>
+    <p><br /><a href="http://twitter.com/Victor1ee" target="_blank">My Tweets, on Twitter.</a></p>
+    <a href="http://twitter.com/Victor1ee" class="twitter-follow-button" data-show-count="">Follow @Victor1ee</a>
+  </div>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Wei Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

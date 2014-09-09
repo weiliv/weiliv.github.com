@@ -1,149 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Meet @五角场民工</title>
-  <meta name="author" content="Wei Li">
-
-  
-  <meta name="description" content="iTunesConnect改版后UI上更酷炫了，但是功能上却出现了一些让人抓狂的bug。 周末提交app给apple审核，打包上传后发现点击“Submit For Review”总是出现下面的错误： Your app information could not be saved. Try &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://weiliv.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Meet @五角场民工" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-<!-- Load jQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-    jQuery.noConflict(); // ender.js conflicts with jQuery
-</script>
- 
-<!-- Load FancyBox -->
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" />
-<script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
- 
-<!-- Fix FancyBox style for OctoPress -->
-<style type="text/css">
-  .fancybox-wrap { position: fixed !important; }
-  .fancybox-opened {
-    -webkit-border-radius: 4px !important;
-       -moz-border-radius: 4px !important;
-            border-radius: 4px !important;
-  }
-  .fancybox-close, .fancybox-prev span, .fancybox-next span {
-    background-color: transparent !important;
-    border: 0 !important;
-  }
-</style>
-
- 
-<!-- Custom Scripts -->
-<script language="Javascript" type="text/javascript">
-    // ender.js gobbles jQuery's ready event: Use ender.js $ instead
-    $(document).ready(function() {
-        jQuery(".fancybox").fancybox();
-    });
-</script>
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-41052163-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Meet @五角场民工</a></h1>
-  
-    <h2>Blog about Apps, Web, and my life.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:weiliv.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Meet @五角场民工]]></title>
+  <link href="http://weiliv.github.io/atom.xml" rel="self"/>
+  <link href="http://weiliv.github.io/"/>
+  <updated>2014-09-09T20:27:54+08:00</updated>
+  <id>http://weiliv.github.io/</id>
+  <author>
+    <name><![CDATA[Wei Li]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/">iTunes Connect: Can&#8217;t Save App Information 导致不能提交新版本的解决方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2014-09-09T18:18:00+08:00" pubdate data-updated="true">Sep 9<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>iTunesConnect改版后UI上更酷炫了，但是功能上却出现了一些让人抓狂的bug。</p>
+  <entry>
+    <title type="html"><![CDATA[iTunes Connect: Can't save app information 导致不能提交新版本的解决方法]]></title>
+    <link href="http://weiliv.github.io/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/"/>
+    <updated>2014-09-09T18:18:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>iTunesConnect改版后UI上更酷炫了，但是功能上却出现了一些让人抓狂的bug。</p>
 
 <p>周末提交app给apple审核，打包上传后发现点击“Submit For Review”总是出现下面的错误：</p>
 
@@ -154,42 +29,15 @@
 <p>后来发现一韩国哥们也遇到了相同的问题，于是怀疑是不是包里面包含的中文字符导致不能识别，然后就发现了问题所在，<strong>Product Name</strong>不能为中文！之后把XCode-Targets-Packaging下的Product Name改成了英文，相应的在info.plist文件中修改Bundle name和Bundle display name为之前的中文app名。之后打包上传，顺利地Submit For Review了。</p>
 
 <p>Apple， 还我为你折腾的这两三个小时啊！</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/18/arc-notes-part-2/">ARC Notes - Part 2 - More About Lifecycles</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-18T18:39:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2><em>__strong</em></h2>
+  <entry>
+    <title type="html"><![CDATA[ARC Notes - Part 2 - More about Lifecycles]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/18/arc-notes-part-2/"/>
+    <updated>2013-06-18T18:39:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/18/arc-notes-part-2</id>
+    <content type="html"><![CDATA[<h2><em>__strong</em></h2>
 
 <p>Let&rsquo;s talk over the vars declared as <em>__strong</em> or declared default as <em>__strong</em>.</p>
 
@@ -318,42 +166,15 @@
 
 
 <p>But not all outlet should use weak property, such as self.vew … It depends.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/17/arc-notes/">ARC Notes - Part 1 - Basics</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-17T17:45:00+08:00" pubdate data-updated="true">Jun 17<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>What is ARC?</h2>
+  <entry>
+    <title type="html"><![CDATA[ARC Notes - Part 1 - Basics]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/17/arc-notes/"/>
+    <updated>2013-06-17T17:45:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/17/arc-notes</id>
+    <content type="html"><![CDATA[<h2>What is ARC?</h2>
 
 <blockquote><p><em>Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Rather than having to think about retain and release operations, ARC allows you to concentrate on the interesting code.</em></p></blockquote>
 
@@ -384,11 +205,11 @@
 
 <h4>Strong reference</h4>
 
-<p><a href="/images/ARC/ARC_outline_strong.JPG" class="fancybox" title=""><img src="/images/ARC/ARC_outline_strong.JPG" alt="" /></a></p>
+<p><a href="http://weiliv.github.io/images/ARC/ARC_outline_strong.JPG" class="fancybox" title=""><img src="http://weiliv.github.io/images/ARC/ARC_outline_strong.JPG" alt="" /></a></p>
 
 <h4>Weak reference</h4>
 
-<p><a href="/images/ARC/ARC_outline_weak.png" class="fancybox" title=""><img src="/images/ARC/ARC_outline_weak.png" alt="" /></a></p>
+<p><a href="http://weiliv.github.io/images/ARC/ARC_outline_weak.png" class="fancybox" title=""><img src="http://weiliv.github.io/images/ARC/ARC_outline_weak.png" alt="" /></a></p>
 
 <ol>
 <li><code>firstname</code> is <code>@"natsu"</code> object&rsquo;s holder, in other words, <code>fistname</code> is <code>NSString</code> type object&rsquo;s strong reference.</li>
@@ -556,83 +377,29 @@ Generally, we do not need the ownership of vars declared as <em>readonly</em>. B
 
 <p>
 But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s unnecessary to declare the var&rsquo;s ownership.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/14/ios7-ui-preview/">iOS7 UI Preview</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-14T18:55:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To keep current :), my &ldquo;aged&rdquo; iPhone4 was renewed with iOS7 involed in WWDC2013.</p>
+  <entry>
+    <title type="html"><![CDATA[iOS7 UI Preview]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/14/ios7-ui-preview/"/>
+    <updated>2013-06-14T18:55:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/14/ios7-ui-preview</id>
+    <content type="html"><![CDATA[<p>To keep current :), my &ldquo;aged&rdquo; iPhone4 was renewed with iOS7 involed in WWDC2013.</p>
 
 <ul class="gallery">
-<li><a href="/images/ios7_UI_Preview/IMG_0103.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0103_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0102.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0102_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0090.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0090_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0091.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0091_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0092.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0092_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0093.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0093_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0094.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0094_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0095.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0095_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0096.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0096_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0097.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0097_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0098.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0098_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0099.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0099_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0100.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0100_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0101.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0101_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0104.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0104_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0105.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0105_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0106.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0106_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0107.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0107_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0108.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0108_m.jpg" alt="" /></a></li><li><a href="/images/ios7_UI_Preview/IMG_0110.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="/images/ios7_UI_Preview/IMG_0110_m.jpg" alt="" /></a></li>
+<li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0103.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0103_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0102.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0102_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0090.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0090_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0091.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0091_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0092.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0092_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0093.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0093_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0094.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0094_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0095.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0095_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0096.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0096_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0097.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0097_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0098.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0098_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0099.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0099_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0100.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0100_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0101.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0101_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0104.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0104_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0105.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0105_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0106.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0106_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0107.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0107_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0108.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0108_m.jpg" alt="" /></a></li><li><a href="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0110.jpg" class="fancybox" rel="gallery-e901cdf7096ccfe5b5a5f8820ebcb060" title=""><img src="http://weiliv.github.io/images/ios7_UI_Preview/IMG_0110_m.jpg" alt="" /></a></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/">Getting MD5 or SHA1 From NSData/NSString</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-03T18:58:00+08:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Calculating the <code>md5</code> or <code>sha1</code> hash from <code>NSData/NSString</code> in iOS sdk is pretty simple.</p>
+  <entry>
+    <title type="html"><![CDATA[Getting MD5 or SHA1 from NSData/NSString]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/"/>
+    <updated>2013-06-03T18:58:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring</id>
+    <content type="html"><![CDATA[<p>Calculating the <code>md5</code> or <code>sha1</code> hash from <code>NSData/NSString</code> in iOS sdk is pretty simple.</p>
 
 <h4>Step 1:</h4>
 
@@ -735,42 +502,15 @@ But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s 
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/01/the-output-of-uiimage-dot-size/">The Output of UIImage.size</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-01T14:11:00+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The <code>size</code> reported by <code>UIImage</code> is in points, not pixels. You need to take into account the <code>scale</code> property of <code>UIImage</code>.</p>
+  <entry>
+    <title type="html"><![CDATA[the Output of UIImage.size]]></title>
+    <link href="http://weiliv.github.io/blog/2013/06/01/the-output-of-uiimage-dot-size/"/>
+    <updated>2013-06-01T14:11:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/06/01/the-output-of-uiimage-dot-size</id>
+    <content type="html"><![CDATA[<p>The <code>size</code> reported by <code>UIImage</code> is in points, not pixels. You need to take into account the <code>scale</code> property of <code>UIImage</code>.</p>
 
 <p>In other words, if <code>test.jpg</code> is 1000x1000 then <code>UIImage.size</code> will report 1000x1000. If <code>test@2x.png</code> is 2000x2000 then <code>UIImage.size</code> will also report 1000x1000. But in the 2nd case, <code>UIImage.scale</code> will report 2.</p>
 
@@ -786,42 +526,15 @@ But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s 
 </span><span class='line'><span class="n">pixelsInWidth</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">scale</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/26/modern-objective-c-syntax/">Modern Objective-C Syntax</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-26T19:06:00+08:00" pubdate data-updated="true">May 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Apple Inc&rsquo;s WWDC2012 involved lots of new properties of Objective-C, helping developpers write code with much more efficiency. What a pity that it is so late since I learned about thar from the WWDC2012 conference videos published on itunes.</p>
+  <entry>
+    <title type="html"><![CDATA[Modern Objective-C Syntax]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax/"/>
+    <updated>2013-05-26T19:06:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/26/modern-objective-c-syntax</id>
+    <content type="html"><![CDATA[<p>Apple Inc&rsquo;s WWDC2012 involved lots of new properties of Objective-C, helping developpers write code with much more efficiency. What a pity that it is so late since I learned about thar from the WWDC2012 conference videos published on itunes.</p>
 
 <h3>Object Literals</h3>
 
@@ -976,42 +689,15 @@ But for scalar varibles, the default property is <em>assign</em>, so it&rsquo;s 
 
 <p>In fact, this feature is not unfamiliar in other language, like C++ or Java. Maybe Objective-C was born in 1980s, it never improve that.
 But, better late than never!~ Objective-C is always moving forward!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/">NSRegularExpression Notes and Cheat Sheet</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-19T21:30:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;m so shamed that little knowledge about RegularExpression was armed. Then I found a <a href="http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet">blog</a> post by <a href="http://www.raywenderlich.com/">Ray Wenderlich</a>, an independent iOS developer whoes articals did have helped me a lot.</p>
+  <entry>
+    <title type="html"><![CDATA[NSRegularExpression Notes and Cheat Sheet]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet/"/>
+    <updated>2013-05-19T21:30:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/19/nsregularexpression-notes-and-cheat-sheet</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m so shamed that little knowledge about RegularExpression was armed. Then I found a <a href="http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet">blog</a> post by <a href="http://www.raywenderlich.com/">Ray Wenderlich</a>, an independent iOS developer whoes articals did have helped me a lot.</p>
 
 <p>A regular expression (commonly known as a “regex”) is a string or a sequence of characters that specifies a pattern. Think of it as a search string — but with super powers!</p>
 
@@ -1131,42 +817,15 @@ But, better late than never!~ Objective-C is always moving forward!</p>
 
 
 <p>That&rsquo;s <em>may</em> enough to get started!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/08/create-array-of-functions-in-objc/">Create Array of Functions in ObjC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-08T13:59:00+08:00" pubdate data-updated="true">May 8<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A requirement as follows,  <br/>
+  <entry>
+    <title type="html"><![CDATA[Create array of functions in ObjC]]></title>
+    <link href="http://weiliv.github.io/blog/2013/05/08/create-array-of-functions-in-objc/"/>
+    <updated>2013-05-08T13:59:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/05/08/create-array-of-functions-in-objc</id>
+    <content type="html"><![CDATA[<p>A requirement as follows,  <br/>
 We need to test all the DotNet Http request APIs in one simple tester app. But that will anoy me much if single API is called line after line. So an array constructed with API functions will walk around that duplication of labor.  <br/>
 Here is the code:</p>
 
@@ -1203,42 +862,15 @@ Here is the code:</p>
 
 
 <p></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/20/my-first-blog-for-setting-goals/">My First Blog for Setting Goals</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-20T20:36:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I still remember when maintaining MSN space the first year I entered college. Then now I come back! Coz during the busy developping work, I rarely have time to write down some of the tips I need to achive. And what most of all, I should refect on my life regularly and regularly which is the exactly thing I seldom do.</p>
+  <entry>
+    <title type="html"><![CDATA[My First Blog for Setting Goals]]></title>
+    <link href="http://weiliv.github.io/blog/2013/04/20/my-first-blog-for-setting-goals/"/>
+    <updated>2013-04-20T20:36:00+08:00</updated>
+    <id>http://weiliv.github.io/blog/2013/04/20/my-first-blog-for-setting-goals</id>
+    <content type="html"><![CDATA[<p>I still remember when maintaining MSN space the first year I entered college. Then now I come back! Coz during the busy developping work, I rarely have time to write down some of the tips I need to achive. And what most of all, I should refect on my life regularly and regularly which is the exactly thing I seldom do.</p>
 
 <p>As the title says, here some of goals are listed that I should cost my passion to acheive, at least try my best before 2014.1.1. Though today is Apr 20th, 2013, better later than never to set goals!</p>
 
@@ -1271,108 +903,7 @@ Here is the code:</p>
 
 
 <p>Hope all the goals will be defeated at the end of 2013.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/09/09/itunes-connect-cant-save-app-information-dao-zhi-bu-neng-ti-jiao-xin-ban-ben-de-jie-jue-fang-fa/">iTunes Connect: Can&#8217;t Save App Information 导致不能提交新版本的解决方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/18/arc-notes-part-2/">ARC Notes - Part 2 - More About Lifecycles</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/17/arc-notes/">ARC Notes - Part 1 - Basics</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/14/ios7-ui-preview/">iOS7 UI Preview</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/03/getting-md5-or-sha1-from-nsdata-slash-nsstring/">Getting MD5 or SHA1 From NSData/NSString</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-<html xmlns:wb=“http://open.weibo.com/wb”>
-<head>
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-</head>
-
-
-<section>
-    <h1>On Sina Weibo:</h1>
-    <div>
-        <wb:follow-button uid="1880452127" type="gray_2" width="136" height="24" ></wb:follow-button>
-    </div>
-</section>
-
-
-</html>
-
-<section>
-  <h1>On Twitter:</h1>
-  <div>
-    <p><br /><a href="http://twitter.com/Victor1ee" target="_blank">My Tweets, on Twitter.</a></p>
-    <a href="http://twitter.com/Victor1ee" class="twitter-follow-button" data-show-count="">Follow @Victor1ee</a>
-  </div>
-</section>
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Wei Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
